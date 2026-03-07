@@ -1,0 +1,21 @@
+const express = require('express')
+const app = express()
+const port = 3000
+
+app.get('/', (req, res) => {
+ res.send('hello world express');
+})
+
+app.listen(port, () => {
+    console.log("EX em express")
+
+})
+
+
+/*
+    Vinin, o .gitignore não é pra remover, eu adicionei para quando subir o projeto pro github, não subir o node modules junto
+    e quando vc iniciar o projeto no seu pc, vc vai precisar usar npm i, pra instalar os pacotes do projeto
+    vc precisa usar o npm i, na pasta front/ e na pasta back/, depois pesquisa um bgl chamado nodemon, ele é bom pra krl
+    serve pra quando atualizar o codigo, ele rodar o npm run dev automaticamente, ai vc pode ficar mudando o codigo e já
+    atualiza o servidor, e vc adiciona ele no package.json na aba "scripts"
+*/
