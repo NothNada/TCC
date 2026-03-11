@@ -1,12 +1,16 @@
 const express = require('express')
+const cors = require("cors")
+
 
 const bdCheck = require('./utils/bdCheck')
 const ReadUsers = require('./models/ReadUsers')
 const UserController = require('./controllers/userController')
 
-const app = express()
-const port = 3000
 
+
+const app = express()
+app.use(cors())
+const port = 3000
 
 bdCheck.check()
 
@@ -17,6 +21,9 @@ bdCheck.check()
 const jsonUsers = ReadUsers.getAll().then(res => {//remover isso depois!
   console.log("all Users: ", res)
 });
+app.get("/user", (req, res) => {
+  res.json({ teste: "teste" })
+  })
 
 
 app.listen(port, () => {
