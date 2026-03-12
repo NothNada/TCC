@@ -1,45 +1,25 @@
-const express = require('express')
-const cors = require("cors")
+import express from 'express'
+import cors from "cors"
 
-
-const bdCheck = require('./utils/bdCheck')
-const ReadUsers = require('./models/ReadUsers')
-const UserController = require('./controllers/userController')
-
+import userRoutes from './routes/userRoutes.js'
 
 
 const app = express()
+
+
 app.use(cors())
+app.use(express.json())
+
+
 const port = 3000
 
-bdCheck.check()
-
-//UserController.addUser({name : "name"})
-//UserController.removeUser({id : "id"}
-//UserController.updateUser({ id: "2", name: "newName" })
-
-const jsonUsers = ReadUsers.getAll().then(res => {//remover isso depois!
-  console.log("all Users: ", res)
-});
-app.get("/user", (req, res) => {
-  res.json({ teste: "teste" })
-  })
-
+/*
+  Aqui ele irá criar as rotas base, e o resto será controlado pelos arquivos da pasta routes/
+  Aqui só terá as bases, como /api /admin /login e tals pode ter /api/login, depois vemos isso
+*/
+app.use('/api', userRoutes)
 
 app.listen(port, () => {
   console.log("EX em express")
 
 })
-
-
-
-
-/*
-    Vinin, o .gitignore não é pra remover, eu adicionei para quando subir o projeto pro github, não subir o node modules junto
-    e quando vc iniciar o projeto no seu pc, vc vai precisar usar npm i, pra instalar os pacotes do projeto
-    vc precisa usar o npm i, na pasta front/ e na pasta back/, depois pesquisa um bgl chamado nodemon, ele é bom pra krl
-    serve pra quando atualizar o codigo, ele rodar o npm run dev automaticamente, ai vc pode ficar mudando o codigo e já
-    atualiza o servidor, e vc adiciona ele no package.json na aba "scripts"
-
-    blz já adicionei no package.json 
-*/

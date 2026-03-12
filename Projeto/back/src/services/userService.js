@@ -1,19 +1,26 @@
-const bd = require('../config/database')
+import User from "../models/User.js";
 
-const UsersService = {
-  addUser: async (data) => {
-    const { name } = data
+/*
 
-    return bd.query("insert into users (username) values (?)", name)
-  },
-  removeUser: async (data) => {
-    const { id } = data
-    return bd.query("delete from users where id = ?", id)
-  },
-  updateUser: async (data) => {
-    const { id, name } = data
-    return bd.query("update users set username = ? where id = ? ", [name, id])
+  Aqui no service terá
+  - A maior parte da logica, aqui sim lidara com tokens e autenticação
+  - Hash de senha
+  - logica de negocio e outras coisas
+
+*/
+
+
+
+function getUsers() {
+  return User.findAll();
+}
+
+function createUser(name, email) {
+  if (!name || !email) {
+    throw new Error("Nome e email obrigatórios");
   }
 
+  return User.create(name, email);
 }
-module.exports = UsersService
+
+export default { getUsers, createUser };

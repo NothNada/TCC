@@ -1,29 +1,34 @@
-const UsersServices = require('../services/userService')
+import UserService from "../services/userService.js";
 
-const UsersController = {
-  addUser: async (req) => {
-    //req é enviados pelo o front por POST(eu acho)
-    try {
-      UsersServices.addUser(req)
-    } catch (err) {
-      console.log('erro ao adicionar user: ', err)
-      throw err
-    }
-  },
-  removeUser: async (req) => {
-    try {
-      UsersServices.removeUser(req)
-    } catch (err) {
-      console.log('erro ao remover user: ', err)
-    }
-  },
-  updateUser: async (req) => {
-    try {
-      UsersServices.updateUser(req)
-    } catch (err) {
-      console.log('erro no update user: ', err)
-    }
-  }
+/* 
 
+  Aqui no controller, terá
+  - manipulação da requisição do usuario
+  - chamada do service
+  - envio do http code ( 400, 505, 200, etc... )
+  
+*/
+
+
+
+function getUsers(req, res) {
+  const users = UserService.getUsers();
+  res.json(users);
 }
-module.exports = UsersController
+
+function createUser(req, res) {
+  const { name, email } = req.body;
+
+  try {
+    const result = UserService.createUser(name, email);
+
+    res.status(201).json({
+      message: "Usuário criado",
+      id: result.lastInsertRowid
+    });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+}
+
+export default { getUsers, createUser };
