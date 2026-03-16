@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Bloco from './components/Bloco'
 
+import Routes from './routes'
+
+import Navigate  from 'react-router-dom'
+
+
 function App() {
 
   const [array, setArray] = useState([
@@ -42,23 +47,27 @@ function App() {
   }
 
   return (
-    <div className='w-full min-h-dvh
-    flex
-    flex-col justify-center items-center
-    gap-10
-    p-10
-    '>
-    
-    {
-      array.map((e,i)=>
-        typeof(e) != 'boolean' ? <Bloco key={i} texto={e} setter={(s)=>handleChange(i,s)} hasInput={true}/> :
-       <Bloco key={i} texto="Esse bloco foi feito com a operação ternaria" hasInput={false}/>
+    <>
+      <Navigate />
+
+      <div className='w-full min-h-dvh
+      flex
+      flex-col justify-center items-center
+      gap-10
+      p-10
+      '>
+      
+      {
+        array.map((e,i)=>
+          typeof(e) != 'boolean' ? <Bloco key={i} texto={e} setter={(s)=>handleChange(i,s)} hasInput={true}/> :
+        <Bloco key={i} texto="Esse bloco foi feito com a operação ternaria" hasInput={false}/>
       )
     }
 
-    <Bloco texto={"A soma dos numeros é " + soma(numeros)} hasInput={false}/>
-    
-    </div>
+      <Bloco texto={"A soma dos numeros é " + soma(numeros)} hasInput={false}/>
+      
+      </div>
+    </>
   )
 
 }
