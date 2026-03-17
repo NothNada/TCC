@@ -1,16 +1,18 @@
 import { Link } from 'react-router-dom'
 
-import Home from './pages/homePage'
 
+function Navbar() {
+  return (
+    <nav>
+      <Link to='/'>
+        home |
+      </Link>
 
-function Navbar(){
-    return (
-        <nav>
-            <Link to='/home'>
-                home
-            </Link>
-        </nav>
-    )
+      <Link to='/login'>
+        | login
+      </Link>
+    </nav>
+  )
 
 }
 
