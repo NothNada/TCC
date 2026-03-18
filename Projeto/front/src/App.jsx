@@ -10,7 +10,9 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Navbar />
+        <header class="bg-white shadow-md fixed top-0 w-full z-50 border-b border-gray-200 mb-800">
+          <Navbar />
+        </header>
         <Route />
       </BrowserRouter>
     </>
