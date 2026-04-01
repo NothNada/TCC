@@ -11,30 +11,34 @@ import db from "../database/connection.js";
 */
 
 function findAll() {
-    /* 
-        Aqui com o sqlite3 ficaria
+  /* 
+      Aqui com o sqlite3 ficaria
 
-        db.all("SELECT * FROM users", [], (err, rows) => {
-            if (err) {
-                throw err;
-            }
-            console.log(rows);
-        });
+      db.all("SELECT * FROM users", [], (err, rows) => {
+          if (err) {
+              throw err;
+          }
+          console.log(rows);
+      });
 
-        Perceba que não usa o prepare, o prepare ele protege contra SQLInjection
+      Perceba que não usa o prepare, o prepare ele protege contra SQLInjection
 
-    */
-    return db.prepare("SELECT * FROM users").all();
+  */
+  return db.prepare("SELECT * FROM users").all();
 }
 
 function findById(id) {
-    return db.prepare("SELECT * FROM users WHERE id = ?").get(id);
+  return db.prepare("SELECT * FROM users WHERE id = ?").get(id);
 }
 
-function create(name, email) {
-    return db
-        .prepare("INSERT INTO users (name, email) VALUES (?, ?)")
-        .run(name, email);
+function findByEmail(email) {
+  return db.prepare('SELECT * FROM users WHERE EMAIL = ?').get(email);
 }
 
-export default { findAll, findById, create };
+function create(name, email, password) {
+  return db
+    .prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)")
+    .run(name, email, password);
+}
+
+export default { findAll, findById, findByEmail, create };

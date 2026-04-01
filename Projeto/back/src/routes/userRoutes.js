@@ -9,7 +9,10 @@ const router = Router();
 
 */
 
-router.get("/users", UserController.getUsers);
-router.post("/users", UserController.createUser);
+router.post("/createUser", UserController.createUser);
+
+router.post("/loginUser", UserController.loginUser)
+
+router.get("/getUsers", UserController.getUsers)
 
 export default router;

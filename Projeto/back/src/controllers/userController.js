@@ -13,14 +13,15 @@ import UserService from "../services/userService.js";
 
 function getUsers(req, res) {
   const users = UserService.getUsers();
+  console.log(users)
   res.json(users);
 }
 
-function createUser(req, res) {
-  const { name, email } = req.body;
+async function createUser(req, res) {
+  const { name, email, password } = req.body;
 
   try {
-    const result = UserService.createUser(name, email);
+    const result = await UserService.createUser(name, email, password);
 
     res.status(201).json({
       message: "Usuário criado",
@@ -31,4 +32,19 @@ function createUser(req, res) {
   }
 }
 
-export default { getUsers, createUser };
+async function loginUser(req, res) {
+  const { email, password } = req.body
+
+  try {
+    const result = await UserService.loginUser(email, password)
+
+    if (result) res.status(200).json({
+      message: "usuario logado!",
+    })
+  } catch (err) {
+    res.status(400).json({ error: err.message })
+  }
+
+}
+
+export default { getUsers, createUser, loginUser };
