@@ -62,4 +62,11 @@ func main() {
 	fmt.Printf("RAM: %.2f%% (%d/%d MB)\n", metrics.MemPercent, metrics.MemUsedMB, metrics.MemTotalMB)
 	fmt.Printf("Disco: %.2f%% (%.2f/%.2f GB)\n", metrics.DiskPercent, metrics.DiskUsedGB, metrics.DiskTotalGB)
 	fmt.Printf("Processos encontrados: %d\n", len(metrics.Processes))
+
+	client := apiclient.New(cfg.ServerURL)
+	if err := client.SendMetrics(cfg.AgentUUID, metrics); err != nil {
+		log.Fatalf("erro ao enviar metricas: %v", err)
+	}
+
+	fmt.Println("Metricas enviadas com sucesso")
 }

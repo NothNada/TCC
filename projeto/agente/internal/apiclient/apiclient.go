@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+
+	"agente/internal/collector"
 )
 
 type Client struct {
@@ -59,4 +61,25 @@ func (c *Client) Register(req RegisterRequest) (*RegisterResponse, error) {
 	}
 
 	return &result, nil
+}
+
+func (c *Client) SendMetrics(AgentUUID string, metrics *collector.Metrics) error {
+	body, err := json.Marshal(metrics)
+	if err != nil {
+		return fmt.Errorf("erro ao serializar metricas: ", err)
+	}
+
+	url := fmt.Sprintf("%s/agents/%s/metrics", c.baseURL, AgentUUID)
+
+	resp, err := c.httpClient.Post(url, "application/json", bytes.NewReader(body))
+	if err != nil {
+		return fmt.Errorf("erro ao chamar %s: %w", url, err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusCreated {
+		return fmt.Errorf("servidor retornou status %d ao enviar metricas", resp.StatusCode)
+	}
+
+	return nil
 }
