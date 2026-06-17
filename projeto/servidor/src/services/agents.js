@@ -1,4 +1,5 @@
 import db from "../db/index.js";
+import { assertAgentOwnership } from "../utils/access.js";
 
 export class RoomNotFoundError extends Error {}
 export class AgentNotFoundError extends Error {}
@@ -31,7 +32,8 @@ export function registerAgent({ joinCode, agentUuid, hostname }) {
   return { id: result.lastInsertRowid, roomId: room.id, agentUuid, hostname };
 }
 
-export function getAgentMetrics(agentUuid, { limit = 50, offset = 0 } = {}) {
+export function getAgentMetrics(agentUuid, { limit = 50, offset = 0 } = {}, teacherId) {
+  assertAgentOwnership(agentUuid, teacherId);
   const agent = db
     .prepare(`
     SELECT id, agent_uuid, hostname, last_seen_at, room_id

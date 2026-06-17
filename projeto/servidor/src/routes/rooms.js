@@ -47,7 +47,7 @@ router.get("/:id/agents", (req, res) => {
   }
 
   try {
-    const data = getRoomAgents(roomId);
+    const data = getRoomAgents(roomId, req.teacher.id);
     res.json(data);
   } catch (err) {
     if (err instanceof RoomNotFoundError) {

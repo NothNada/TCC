@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS teachers (
   email TEXT NOT NULL UNIQUE,
   password_hash TEXT NOT NULL,
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
-  FOREIGN KEY (school_id) REFERENCES schools(id)
+  FOREIGN KEY (school_id) REFERENCES schools(id) ON DELETE CASCADE
 );
 
 -- Salas
@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS rooms (
   name TEXT NOT NULL,
   join_code TEXT NOT NULL UNIQUE,
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
-  FOREIGN KEY (school_id) REFERENCES schools(id),
-  FOREIGN KEY (teacher_id) REFERENCES teachers(id)
+  FOREIGN KEY (school_id) REFERENCES schools(id) ON DELETE CASCADE
+  FOREIGN KEY (teacher_id) REFERENCES teachers(id) ON DELETE CASCADE
 );
 
 -- Agentes (computadores)
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS agents (
   hostname TEXT,
   last_seen_at TEXT,
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
-  FOREIGN KEY (room_id) REFERENCES rooms(id)
+  FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE
 );
 
 -- Snapshots de metricas
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS metrics (
   disk_used_gb REAL NOT NULL,
   disk_total_gb REAL NOT NULL,
   collected_at TEXT NOT NULL DEFAULT (datetime('now')),
-  FOREIGN KEY (agent_id) REFERENCES agents(id)
+  FOREIGN KEY (agent_id) REFERENCES agents(id) ON DELETE CASCADE
 );
 
 -- Processos por snapshot
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS processes (
   name TEXT NOT NULL,
   pid INTEGER,
   mem_mb REAL,
-  FOREIGN KEY (metric_id) REFERENCES metrics(id)
+  FOREIGN KEY (metric_id) REFERENCES metrics(id) ON DELETE CASCADE
 );
 
 -- Indices para consultas frequentes

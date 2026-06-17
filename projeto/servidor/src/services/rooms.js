@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import db from "../db/index.js";
 import { RoomNotFoundError } from "./agents.js";
+import { assertRoomOwnership } from "../utils/access.js";
 
 export class RoomForbiddenError extends Error {}
 
@@ -36,7 +37,8 @@ export function createRoom({ schoolId, teacherId, name }) {
   };
 }
 
-export function getRoomAgents(roomId) {
+export function getRoomAgents(roomId, teacherId) {
+  assertRoomOwnership(roomId, teacherId);
   const room = db.prepare(`SELECT id, name FROM rooms WHERE id = ?`).get(roomId);
 
   if (!room) {

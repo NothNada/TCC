@@ -4,6 +4,7 @@ import {
   recordMetrics,
   AgentNotFoundError as MetricsAgentNotFoundError,
 } from "../services/metrics.js";
+import { requireAuth } from "../middlewares/auth.js";
 
 const router = Router();
 
@@ -59,13 +60,13 @@ router.post("/:agentUuid/metrics", (req, res) => {
   }
 });
 
-router.get("/:agentUuid/metrics", (req, res) => {
+router.get("/:agentUuid/metrics", requireAuth, (req, res, next) => {
   const { agentUuid } = req.params;
   const limit = Math.min(Number(req.query.limit) || 50, 200);
   const offset = Number(req.query.offset) || 0;
 
   try {
-    const data = getAgentMetrics(agentUuid, { limit, offset });
+    const data = getAgentMetrics(agentUuid, { limit, offset }, req.teacher.id);
     res.json(data);
   } catch (err) {
     if (err instanceof AgentNotFoundError) {

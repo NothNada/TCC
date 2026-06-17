@@ -1,0 +1,8 @@
+{
+  "agent_uuid": "e28c0236-ec55-4bd0-bd78-0a3a6e56c440",
+  "join_code": "V9WK-95UA",
+  "server_url": "http://localhost:4040",
+  "interval_secs": 30,
+  "disk_path": "/",
+  "blocked_hosts": []
+}
