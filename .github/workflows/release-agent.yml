@@ -55,3 +55,11 @@ jobs:
             projeto/agente/moniedu_linux_amd64.zip
             projeto/agente/moniedu_windows_amd64.zip
           make_latest: true
+
+      - name: Apagar releases antigas (manter só 10)
+        uses: dev-drprasad/delete-older-releases@v0.3.4
+        with:
+          keep_latest: 10
+          delete_tags: true       # apaga a tag git junto com a release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
