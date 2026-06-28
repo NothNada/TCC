@@ -127,7 +127,6 @@ A comunicação ocorre em dois fluxos via HTTP:
 
 ## 🔮 Trabalhos Futuros
 
-- Visualização de tela em tempo real
 - Bloqueio temporário de estação
 - Envio de mensagens para os alunos
 - Relatórios de uso
