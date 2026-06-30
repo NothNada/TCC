@@ -33,20 +33,16 @@ func (e *Executor) Execute(ctx context.Context, cmdName string) error {
 	e.mu.RUnlock()
 
 	if !exists {
-		return fmt.Errorf("commando não reconhecido: %s", cmdName)
+		return fmt.Errorf("comando não reconhecido: %s", cmdName)
 	}
 	return action(ctx)
 
 }
 
 func (e *Executor) RegisterDefaultCommands() {
-	e.Register("block_keyboard", blockKeyboard)
-	e.Register("unblock_keyboard", unBlockKeyboard)
+	e.Register("block_mouseAndKeyboard", blockMouseAndKeyboard)
+	e.Register("unblock_mouseAndKeyboard", unBlockMouseAndKeyboard)
 
-	e.Register("block_mouse", blockMouse)
-	e.Register("unblock_mouse", unBlockMouse)
-
-	e.Register("block_monitor", blockMonitor)
-	e.Register("unblock_monitor", unBlockMonitor)
-
+	//e.Register("block_monitor", blockMonitor)
+	//e.Register("unblock_monitor", unBlockMonitor)
 }

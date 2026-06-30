@@ -32,10 +32,6 @@ func New(cfgPath string) (*Agent, error) {
 			return nil, fmt.Errorf("erro na configuracao inicial: %v", err)
 		}
 
-		if err := config.Save(cfgPath, cfg); err != nil {
-			return nil, fmt.Errorf("erro ao salvar config: %v", err)
-		}
-
 		client := apiclient.New(cfg.ServerURL)
 
 		hostname, err := os.Hostname()
@@ -50,6 +46,10 @@ func New(cfgPath string) (*Agent, error) {
 		})
 		if err != nil {
 			return nil, fmt.Errorf("erro ao registrar agente no servidor: %v", err)
+		}
+
+		if err := config.Save(cfgPath, cfg); err != nil {
+			return nil, fmt.Errorf("erro ao salvar config: %v", err)
 		}
 
 		log.Printf("Agente registrado com sucesso! ID=%d, RoomID=%d\n", resp.ID, resp.RoomID)

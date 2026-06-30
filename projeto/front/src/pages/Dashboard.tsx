@@ -432,36 +432,12 @@ export default function Dashboard() {
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Teclado */}
-                      <div className="bg-slate-50 p-3 rounded-lg border border-slate-150 space-y-2">
-                        <span className="text-xs font-semibold text-slate-500 flex items-center gap-1">
+                      <div className="bg-slate-50 p-3 rounded-lg border border-slate-150">
+                        <span className="text-xs font-semibold text-slate-500 gap-1">
+
                           <Keyboard className="h-3.5 w-3.5" /> Teclado
                         </span>
-                        <div className="flex gap-2">
-                          <Button
-                            className="flex-1 text-xs"
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => handleSendCommand(selectedAgent.agent_uuid, "block_keyboard")}
-                            disabled={executingCommand !== null}
-                          >
-                            {executingCommand === "block_keyboard" ? "Bloqueando..." : "Bloquear"}
-                          </Button>
-                          <Button
-                            className="flex-1 text-xs"
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleSendCommand(selectedAgent.agent_uuid, "unblock_keyboard")}
-                            disabled={executingCommand !== null}
-                          >
-                            <Unlock className="mr-1 h-3 w-3" />
-                            {executingCommand === "unblock_keyboard" ? "Desbloqueando..." : "Desbloquear"}
-                          </Button>
-                        </div>
-                      </div>
-
-                      {/* Mouse */}
-                      <div className="bg-slate-50 p-3 rounded-lg border border-slate-150 space-y-2">
-                        <span className="text-xs font-semibold text-slate-500 flex items-center gap-1">
+                        <span className="text-xs font-semibold text-slate-500">
                           <MousePointer className="h-3.5 w-3.5" /> Mouse
                         </span>
                         <div className="flex gap-2">
@@ -469,23 +445,24 @@ export default function Dashboard() {
                             className="flex-1 text-xs"
                             variant="destructive"
                             size="sm"
-                            onClick={() => handleSendCommand(selectedAgent.agent_uuid, "block_mouse")}
+                            onClick={() => handleSendCommand(selectedAgent.agent_uuid, "block_mouseAndKeyboard")}
                             disabled={executingCommand !== null}
                           >
-                            {executingCommand === "block_mouse" ? "Bloqueando..." : "Bloquear"}
+                            {executingCommand === "block_mouseAndKeyboard" ? "Bloqueando..." : "Bloquear"}
                           </Button>
                           <Button
                             className="flex-1 text-xs"
                             variant="outline"
                             size="sm"
-                            onClick={() => handleSendCommand(selectedAgent.agent_uuid, "unblock_mouse")}
+                            onClick={() => handleSendCommand(selectedAgent.agent_uuid, "unblock_mouseAndKeyboard")}
                             disabled={executingCommand !== null}
                           >
                             <Unlock className="mr-1 h-3 w-3" />
-                            {executingCommand === "unblock_mouse" ? "Desbloqueando..." : "Desbloquear"}
+                            {executingCommand === "unblock_mouseAndKeyboard" ? "Desbloqueando..." : "Desbloquear"}
                           </Button>
                         </div>
                       </div>
+
 
                       {/* Monitor / Tela */}
                       <div className="bg-slate-50 p-3 rounded-lg border border-slate-150 space-y-2 sm:col-span-2">
